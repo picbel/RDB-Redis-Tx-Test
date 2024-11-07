@@ -6,7 +6,6 @@ import org.redisson.api.RTransaction
 import org.redisson.api.TransactionOptions
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.util.concurrent.TimeUnit
 
 @Repository
