@@ -68,6 +68,10 @@ class SessionRTxDao(
         return Pair(session, tx)
     }
 
+    fun getSession(sessionId: String): Session? {
+        return sessionMap[sessionId]
+    }
+
     /**
      * 트랜잭션을 실행하고 커밋 또는 롤백 처리하는 헬퍼 메서드
      */
