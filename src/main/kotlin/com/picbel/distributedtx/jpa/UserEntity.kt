@@ -8,8 +8,8 @@ import jakarta.persistence.Id
 
 @Entity
 class UserEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    @Id
+    val id: Long,
     @Column(name = "name", columnDefinition = "VARCHAR2(15)")
     val name: String
 ) {

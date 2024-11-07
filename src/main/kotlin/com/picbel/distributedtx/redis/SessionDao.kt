@@ -38,6 +38,10 @@ class SessionDao(
     fun deleteSession(sessionId: String) {
         sessionMap.remove(sessionId)
     }
+
+    fun clear() {
+        sessionMap.clear()
+    }
 }
 
 @Repository
@@ -57,12 +61,14 @@ class SessionRTxDao(
     ) : Pair<Session, RTransaction> {
         val tx = executeInTransaction { transaction ->
             if (isThrow) {
+                println("트랜잭션 테스트를 위한 의도적인 예외 발생")
                 throw RuntimeException("트랜잭션 테스트를 위한 의도적인 예외 발생")
             }
             val transactionSessionMap = transaction.getMapCache<String, Session>("sessionCache")
             transactionSessionMap[session.sessionId] = session
             if (isCommit) {
                 transaction.commit()
+                println("트랜잭션이 성공적으로 커밋되었습니다.")
             }
         }
         return Pair(session, tx)
@@ -85,7 +91,7 @@ class SessionRTxDao(
         try {
             action(transaction)
 //            transaction.commit() // 테스트를 위해 주석 처리
-            println("트랜잭션이 성공적으로 커밋되었습니다.")
+
         } catch (e: Exception) {
             transaction.rollback()
             println("트랜잭션이 롤백되었습니다: ${e.message}")
