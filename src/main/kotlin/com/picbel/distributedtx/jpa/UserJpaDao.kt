@@ -3,6 +3,7 @@ package com.picbel.distributedtx.jpa
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.support.TransactionSynchronizationManager
 
 
 interface UserRepo {
@@ -20,6 +21,7 @@ private class UserRepoImpl(
 ) : UserRepo {
     @Transactional
     override fun save(user: User, isThrow: Boolean): User {
+        println("UserRepo 트랜잭션 내부 = ${TransactionSynchronizationManager.isActualTransactionActive()}")
         val userEntity = UserEntity(user.id, user.name)
         return userJpaDao.save(userEntity)
             .also { if (isThrow) throw RuntimeException("트랜잭션 테스트를 위한 의도적인 예외 발생") }

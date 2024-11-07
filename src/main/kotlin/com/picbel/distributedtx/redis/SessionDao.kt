@@ -6,6 +6,7 @@ import org.redisson.api.RTransaction
 import org.redisson.api.TransactionOptions
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.support.TransactionSynchronizationManager
 import java.util.concurrent.TimeUnit
 
 @Repository
@@ -21,6 +22,7 @@ class SessionDao(
      */
     @Transactional
     fun saveSession(session: Session) {
+        println("SessionDao 트랜잭션 내부 = ${TransactionSynchronizationManager.isActualTransactionActive()}")
         sessionMap[session.sessionId] = session
     }
 
@@ -60,6 +62,7 @@ class SessionRTxDao(
         isCommit : Boolean = false
     ) : Pair<Session, RTransaction> {
         val tx = executeInTransaction { transaction ->
+            println("SessionRTxDao 트랜잭션 내부 = ${TransactionSynchronizationManager.isActualTransactionActive()}")
             if (isThrow) {
                 println("트랜잭션 테스트를 위한 의도적인 예외 발생")
                 throw RuntimeException("트랜잭션 테스트를 위한 의도적인 예외 발생")
