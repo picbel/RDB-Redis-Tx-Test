@@ -23,12 +23,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.redisson:redisson:3.22.0")
-
+    implementation("org.redisson:redisson:3.18.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("io.kotest:kotest-runner-junit5:5.5.5")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.5")
 
 }
 
